@@ -14,3 +14,18 @@ bootstrap_sample <- function(vec, num_samples) {
     samples <- replicate(num_samples, sample(variable, len, replace=TRUE))
     return(samples)
 }
+
+#' Calculate means from bootstrap samples
+#'
+#' Calculates a vector of means from a matrix of boostrap samples
+#'
+#' @param mat A matrix where each column is one bootstrapped sample
+#'
+#' @return A vector containing the mean for each boostrapped sample
+#'
+#' @examples
+#' bootstrap_means(mat)
+bootstrap_means <- function(mat) {
+    means <- apply(mat, 2, mean)
+    return(means)
+}
