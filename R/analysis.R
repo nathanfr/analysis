@@ -81,3 +81,47 @@ visual_normality_check <- function(vec) {
     p <- qq_plot_normal(vec, qs)
     return(p)
 }
+
+#' Identifies whether or not a variable is categorical
+#'
+#' Returns TRUE if a variable is either a character type or a factor type
+#'
+#' @param vec A vector
+#'
+#' @return TRUE/FALSE depending on whether or not the variable is character or factor type
+check_categorical <- function(vec) {
+    cls <- class(vec)
+    if (cls=='character' || cls=='factor') {
+        return(TRUE)
+    } else {
+        return(FALSE)
+    }
+}
+
+#' Extract categorical variables from a data frame
+#'
+#' Returns a new dataframe consisting only of the categorical variables from the original data frame
+#'
+#' @param df A dataframe
+#'
+#' @return A new dataframe with just categorical variables
+extract_categoricals <- function(df) {
+    require(dplyr)
+    dat <- df %>%
+        select_if(check_categorical)
+    return(dat)
+}
+
+#' Extract numeric variables from a data frame
+#'
+#' Returns a new data frame consisting only of numeric variables
+#'
+#' @param df A dataframe
+#'
+#' @return A new dataframe with only numeric variables
+extract_numerics <- function(df) {
+    require(dplyr)
+    dat <- df %>%
+        select_if(is.numeric)
+    return(dat)
+}
